@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { 
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, 
-  ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell 
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, 
+  ResponsiveContainer 
 } from 'recharts';
 import { motion, Variants } from 'framer-motion';
 import { AnalysisResult } from '../types';
@@ -14,7 +13,6 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = false }) => {
-  // Use Variants type and 'as const' to fix TS inference issues with 'ease' property
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,7 +24,6 @@ const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = fal
     }
   };
 
-  // Explicitly typing variants ensures compatibility with motion components
   const itemVariants: Variants = {
     hidden: { y: 30, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.5 } }
@@ -36,7 +33,6 @@ const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = fal
     grid: isDarkMode ? 'rgba(255, 255, 255, 0.05)' : '#e2e8f0',
     axis: isDarkMode ? '#64748b' : '#64748b',
     primary: '#6366f1',
-    secondary: '#a855f7',
     bg: isDarkMode ? '#0f172a' : '#ffffff',
   };
 
@@ -57,7 +53,7 @@ const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = fal
             Match Report Generated
           </motion.div>
           <h2 className="text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">Career Insight <span className="text-indigo-600 dark:text-indigo-400">Analysis.</span></h2>
-          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-2xl mt-2">A multi-layered evaluation of your professional profile against target market requirements.</p>
+          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-2xl mt-2">A multi-layered evaluation focusing on domain expertise and strategic alignment.</p>
         </div>
         <motion.button 
           whileHover={{ scale: 1.02, y: -2 }}
@@ -121,15 +117,15 @@ const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = fal
         <motion.div variants={itemVariants} className="lg:col-span-8 space-y-8">
           <div className="glass-card p-12 rounded-[48px]">
             <div className="flex justify-between items-center mb-10">
-              <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Weighted Components</h3>
-              <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1 rounded-full uppercase tracking-widest">Statistical View</span>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Semantic Components</h3>
+              <span className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1 rounded-full uppercase tracking-widest">Weighted View</span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
               {[
-                { label: 'Core Skills', val: result.breakdown.skills, color: 'bg-indigo-500', weight: '40%' },
-                { label: 'Keywords', val: result.breakdown.keywords, color: 'bg-violet-500', weight: '25%' },
-                { label: 'Relevance', val: result.breakdown.experience, color: 'bg-blue-500', weight: '20%' },
-                { label: 'Format', val: result.breakdown.format, color: 'bg-emerald-500', weight: '10%' },
+                { label: 'Core Skills', val: result.breakdown.skills, color: 'bg-indigo-500', weight: '45%' },
+                { label: 'Experience', val: result.breakdown.experience, color: 'bg-violet-500', weight: '30%' },
+                { label: 'Impact', val: result.breakdown.strategicImpact, color: 'bg-blue-500', weight: '15%' },
+                { label: 'Format', val: result.breakdown.format, color: 'bg-emerald-500', weight: '5%' },
                 { label: 'Grammar', val: result.breakdown.grammar, color: 'bg-rose-500', weight: '5%' }
               ].map((item, i) => (
                 <div key={i} className="flex flex-col items-center p-6 rounded-[32px] bg-slate-50/50 dark:bg-slate-900/50 border border-transparent hover:border-indigo-500/20 transition-all group">
@@ -176,7 +172,7 @@ const Dashboard: React.FC<DashboardProps> = ({ result, onReset, isDarkMode = fal
                 <div className="w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-500 flex items-center justify-center">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                 </div>
-                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Identified Gaps</h4>
+                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest">Growth Opportunities</h4>
               </div>
               <div className="flex flex-wrap gap-3">
                 {result.missingSkills.map((s, i) => (

@@ -1,17 +1,19 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import { AnalysisResult } from "../types";
 
 export const analyzeResume = async (resumeText: string, jobDescription: string): Promise<AnalysisResult> => {
-  // Always initialize with fresh instance to use latest API Key from environment
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  // Use the user-specified GEMINI_API_TOKEN, falling back to API_KEY if needed for environment compatibility
+  const apiKey = process.env.GEMINI_API_TOKEN || process.env.API_KEY || '';
+  const ai = new GoogleGenAI({ apiKey });
 
-  const prompt = `Act as an elite executive recruiter and NLP analyst. Conduct a deep semantic alignment check between the provided resume and the job description.
+  const prompt = `Act as an elite executive recruiter and semantic NLP analyst. Conduct a deep context-aware alignment check between the provided resume and the job description.
+  
+  CRITICAL INSTRUCTION: Do NOT perform simple keyword matching. Focus on the semantic intent, depth of experience, and the qualitative "Strategic Impact" of the candidate's history.
   
   Focus on:
-  - Contextual Relevance: Does the candidate's past impact match the JD's requirements?
-  - Transferable Wisdom: Identify underlying competencies even if the terminology differs.
-  - Strategic Gaps: Pinpoint missing high-level responsibilities.
+  - Contextual Relevance: Does the candidate's actual impact and responsibility level match the requirements?
+  - Domain Wisdom: Identify underlying competencies and seniority even if terminology differs.
+  - Strategic Alignment: Pinpoint how the candidate's trajectory fits the role's growth path.
   
   Resume:
   ${resumeText}
@@ -21,17 +23,17 @@ export const analyzeResume = async (resumeText: string, jobDescription: string):
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-pro-preview", // Upgraded to Pro for complex reasoning and deep analysis
+      model: "gemini-3-pro-preview",
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       config: {
         systemInstruction: `Return a highly structured professional analysis. 
-        Avoid generic keyword counting; prioritize semantic meaning.
-        The ATS Score should reflect the overall strategic fit.
+        PURGE all mentions of "keywords". Use semantic reasoning to determine the "breakdown" values.
+        The ATS Score should reflect the overall qualitative fit.
         
         Output MUST be valid JSON.
         The "radarMetrics" array must contain exactly 5 subjects: "Strategic Impact", "Technical Depth", "Leadership", "Role Alignment", and "Cultural/Soft Skills".`,
         responseMimeType: "application/json",
-        thinkingConfig: { thinkingBudget: 2000 }, // Added thinking budget for Pro model to improve analysis depth
+        thinkingConfig: { thinkingBudget: 2000 },
         responseSchema: {
           type: Type.OBJECT,
           properties: {
@@ -40,26 +42,16 @@ export const analyzeResume = async (resumeText: string, jobDescription: string):
               type: Type.OBJECT,
               properties: {
                 skills: { type: Type.NUMBER },
-                keywords: { type: Type.NUMBER },
                 experience: { type: Type.NUMBER },
+                strategicImpact: { type: Type.NUMBER },
                 format: { type: Type.NUMBER },
                 grammar: { type: Type.NUMBER }
               },
-              required: ["skills", "keywords", "experience", "format", "grammar"]
+              required: ["skills", "experience", "strategicImpact", "format", "grammar"]
             },
             matchingSkills: { type: Type.ARRAY, items: { type: Type.STRING } },
             missingSkills: { type: Type.ARRAY, items: { type: Type.STRING } },
             recommendations: { type: Type.ARRAY, items: { type: Type.STRING } },
-            keywordAnalysis: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  keyword: { type: Type.STRING },
-                  relevance: { type: Type.NUMBER }
-                }
-              }
-            },
             summary: { type: Type.STRING },
             suggestedJobRoles: { type: Type.ARRAY, items: { type: Type.STRING } },
             radarMetrics: {
@@ -74,7 +66,7 @@ export const analyzeResume = async (resumeText: string, jobDescription: string):
               }
             }
           },
-          required: ["atsScore", "breakdown", "matchingSkills", "missingSkills", "recommendations", "keywordAnalysis", "summary", "suggestedJobRoles", "radarMetrics"]
+          required: ["atsScore", "breakdown", "matchingSkills", "missingSkills", "recommendations", "summary", "suggestedJobRoles", "radarMetrics"]
         }
       }
     });

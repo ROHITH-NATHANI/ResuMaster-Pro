@@ -1,10 +1,9 @@
-
 export interface ScoreBreakdown {
-  skills: number;       // 40%
-  keywords: number;     // 25%
-  experience: number;   // 20%
-  format: number;       // 10%
-  grammar: number;      // 5%
+  skills: number;           // 45%
+  experience: number;       // 30%
+  strategicImpact: number;  // 15%
+  format: number;           // 5%
+  grammar: number;          // 5%
 }
 
 export interface AnalysisResult {
@@ -13,10 +12,6 @@ export interface AnalysisResult {
   matchingSkills: string[];
   missingSkills: string[];
   recommendations: string[];
-  keywordAnalysis: {
-    keyword: string;
-    relevance: number; // 0-100
-  }[];
   summary: string;
   suggestedJobRoles: string[];
   radarMetrics: {
