@@ -1,5 +1,5 @@
 {
   "name": "ResuMaster AI - Advanced Resume Analyzer",
-  "description": "An AI-powered ATS optimization platform that provides skill matching, scoring, and professional feedback using the Gemini 1.5 Pro model.",
+  "description": "An AI-powered ATS optimization platform that provides semantic skill matching and strategic career alignment using the Gemini 3 Flash model.",
   "requestFramePermissions": []
 }

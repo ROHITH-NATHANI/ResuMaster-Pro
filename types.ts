@@ -6,6 +6,18 @@ export interface ScoreBreakdown {
   grammar: number;          // 5%
 }
 
+export interface InterviewQuestion {
+  question: string;
+  focus: string;
+  suggestedAngle: string;
+}
+
+export interface RoadmapStep {
+  phase: string;
+  action: string;
+  impact: string;
+}
+
 export interface AnalysisResult {
   atsScore: number;
   breakdown: ScoreBreakdown;
@@ -13,7 +25,11 @@ export interface AnalysisResult {
   missingSkills: string[];
   recommendations: string[];
   summary: string;
+  refinedSummary: string;
   suggestedJobRoles: string[];
+  coverLetter: string;
+  interviewPrep: InterviewQuestion[];
+  careerRoadmap: RoadmapStep[];
   radarMetrics: {
     subject: string;
     A: number;
