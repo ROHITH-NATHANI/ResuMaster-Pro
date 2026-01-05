@@ -412,7 +412,7 @@ const App: React.FC = () => {
                   ) : uploadedFileName ? (
                     <>
                       <div className="w-16 h-16 md:w-24 md:h-24 bg-indigo-600 text-white rounded-[24px] md:rounded-[32px] flex items-center justify-center shadow-2xl glow-indigo transform transition-transform group-hover:rotate-12">
-                        <svg className="w-10 h-10 md:w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
+                        <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
                       </div>
                       <div className="max-w-full px-4 md:px-6">
                         <p className="text-slate-900 dark:text-white font-black text-xl md:text-2xl truncate mb-1 md:mb-2">{uploadedFileName}</p>
@@ -422,7 +422,7 @@ const App: React.FC = () => {
                   ) : (
                     <>
                       <div className="w-16 h-16 md:w-24 md:h-24 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600 rounded-[24px] md:rounded-[32px] flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
-                        <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                        <svg className="w-10 h-10 md:w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                       </div>
                       <div>
                         <p className="text-slate-900 dark:text-white font-black text-xl md:text-2xl mb-1 md:mb-2">Ingest Profile</p>
