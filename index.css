@@ -4,10 +4,22 @@
 
 @layer base {
     body {
+        @apply bg-slate-100 text-[#0f172a] dark:bg-[#0f172a] dark:text-white transition-colors duration-300;
+        background-image:
+            radial-gradient(at 0% 0%, hsla(253, 16%, 85%, 1) 0, transparent 50%),
+            radial-gradient(at 50% 0%, hsla(225, 39%, 85%, 1) 0, transparent 50%),
+            radial-gradient(at 100% 0%, hsla(339, 49%, 85%, 1) 0, transparent 50%);
         font-family: 'Plus Jakarta Sans', sans-serif;
         overflow-x: hidden;
         transition: background-color 0.5s ease, color 0.5s ease;
         perspective: 1500px;
+    }
+
+    .dark body {
+        background-image:
+            radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+            radial-gradient(at 50% 0%, hsla(225, 39%, 10%, 1) 0, transparent 50%),
+            radial-gradient(at 100% 0%, hsla(339, 49%, 10%, 1) 0, transparent 50%);
     }
 }
 

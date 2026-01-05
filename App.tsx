@@ -6,6 +6,8 @@ import { AppState, AnalysisResult } from './types';
 import Dashboard from './components/Dashboard';
 import * as mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
+import Hero3D from './components/Hero3D';
+import 'animate.css';
 
 // Configure PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://esm.sh/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -359,7 +361,10 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      <main className="flex-grow max-w-[1400px] mx-auto w-full p-6 md:p-20 relative">
+
+
+      <main className="flex-grow max-w-7xl mx-auto w-full p-4 md:p-12 relative z-10">
+        <Hero3D isDark={darkMode} />
         <AnimatePresence mode="wait">
           {!state.result ? (
             <motion.div
@@ -368,64 +373,81 @@ const App: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, filter: 'blur(12px)' }}
               transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start relative z-20"
             >
-              <div className="space-y-8 md:space-y-12 lg:sticky lg:top-40">
+              <div className="space-y-6 md:space-y-8 lg:sticky lg:top-32 pt-8">
                 <div>
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center px-4 py-1.5 md:px-5 md:py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-full text-[9px] md:text-[11px] font-black mb-6 md:mb-10 border border-indigo-100/50 dark:border-indigo-800/30 uppercase tracking-[0.2em]"
+                    className="inline-flex items-center px-3 py-1 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 rounded-full text-[10px] font-bold mb-6 border border-indigo-200 dark:border-indigo-700 uppercase tracking-widest animate__animated animate__fadeInDown"
                   >
-                    <span className="relative flex h-2 md:h-3 w-2 md:w-3 mr-3 md:mr-4">
+                    <span className="relative flex h-2 w-2 mr-3">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-full w-full bg-indigo-500"></span>
                     </span>
                     Quantum Cluster Secured
                   </motion.div>
-                  <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 dark:text-white leading-[0.95] tracking-tighter mb-6 md:mb-10">
-                    Precision <span className="gradient-text italic">Career Engine.</span>
+                  <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight mb-6 animate__animated animate__fadeInUp">
+                    Precision <span className="gradient-text italic inline-block pb-1">Career Engine.</span>
                   </h1>
-                  <p className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 leading-relaxed font-semibold max-w-xl">
+                  <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium max-w-lg animate__animated animate__fadeInUp animate__delay-1s">
                     Beyond matching keywords. We leverage high-order semantic intelligence to align your unique professional narrative with market benchmarks.
                   </p>
                 </div>
 
                 <motion.div
-                  whileHover={{ scale: 1.01, y: -4 }}
+                  whileHover={{ scale: 1.01, y: -2 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => !isExtracting && fileInputRef.current?.click()}
-                  className={`group relative overflow-hidden p-8 md:p-14 border-2 border-dashed rounded-[32px] md:rounded-[50px] transition-all flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 ${isExtracting ? 'border-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/10 cursor-wait' :
-                      uploadedFileName ? 'border-indigo-500/50 bg-indigo-50/20 dark:bg-indigo-900/10 cursor-pointer shadow-2xl' :
-                        'border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900/40 cursor-pointer'
+                  className={`group relative overflow-hidden p-8 md:p-10 border-2 border-dashed rounded-[24px] transition-all flex flex-col items-center justify-center text-center space-y-4 ${isExtracting ? 'border-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/20 cursor-wait' :
+                    uploadedFileName ? 'border-indigo-500/50 bg-indigo-50/30 dark:bg-indigo-900/20 cursor-pointer shadow-xl' :
+                      'border-slate-200 dark:border-slate-700 hover:border-indigo-500/50 hover:bg-indigo-50/30 dark:hover:bg-indigo-900/10 cursor-pointer'
                     }`}
                 >
-                  <input type="file" ref={fileInputRef} className="hidden" accept=".pdf,.docx,.txt" onChange={handleFileSelect} />
-                  {isExtracting ? (
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    accept=".pdf,.docx"
+                    onChange={handleFileSelect}
+                  />
+
+                  {uploadedFileName ? (
                     <div className="flex flex-col items-center">
-                      <div className="w-12 h-12 md:w-16 md:h-16 border-[5px] border-indigo-600 border-t-transparent rounded-full animate-spin mb-6 md:mb-8 shadow-glow" />
-                      <p className="font-black text-xl md:text-2xl text-slate-900 dark:text-white mb-2 md:mb-3">Deconstructing File</p>
-                      <p className="text-indigo-600 dark:text-indigo-400 text-xs font-black uppercase tracking-[0.4em] animate-pulse">{extractionStep}</p>
+                      <div className="h-16 w-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+                        <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-bold text-slate-900 dark:text-white break-all max-w-[200px]">{uploadedFileName}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400 mt-1">Ready for Neural Ingestion</span>
                     </div>
-                  ) : uploadedFileName ? (
-                    <>
-                      <div className="w-16 h-16 md:w-24 md:h-24 bg-indigo-600 text-white rounded-[24px] md:rounded-[32px] flex items-center justify-center shadow-2xl glow-indigo transform transition-transform group-hover:rotate-12">
-                        <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
-                      </div>
-                      <div className="max-w-full px-4 md:px-6">
-                        <p className="text-slate-900 dark:text-white font-black text-xl md:text-2xl truncate mb-1 md:mb-2">{uploadedFileName}</p>
-                        <p className="text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-[0.5em]">DECODED & SECURED</p>
-                      </div>
-                    </>
                   ) : (
                     <>
-                      <div className="w-16 h-16 md:w-24 md:h-24 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-600 rounded-[24px] md:rounded-[32px] flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
-                        <svg className="w-10 h-10 md:w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                      <div className="relative">
+                        <div className="absolute -inset-4 bg-indigo-100 dark:bg-indigo-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity blur-xl"></div>
+                        <div className="h-16 w-16 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform duration-300 border border-slate-100 dark:border-slate-700">
+                          {isExtracting ? (
+                            <svg className="animate-spin w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                          ) : (
+                            <svg className="w-8 h-8 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                          )}
+                        </div>
                       </div>
                       <div>
-                        <p className="text-slate-900 dark:text-white font-black text-xl md:text-2xl mb-1 md:mb-2">Ingest Profile</p>
-                        <p className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-[0.5em]">PDF / DOCX / TXT</p>
+                        <span className="block text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                          {isExtracting ? 'Processing Resume...' : 'Upload Resume'}
+                        </span>
+                        <span className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                          Drop PDF/DOCX to start
+                        </span>
                       </div>
                     </>
                   )}
@@ -561,7 +583,7 @@ const App: React.FC = () => {
                   <div className="space-y-8 md:space-y-12">
                     <motion.div layout className="relative">
                       <div className="flex justify-between items-center mb-4 md:mb-6">
-                        <label htmlFor="resume-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
+                        <label htmlFor="resume-input" className="text-[9px] md:text-[10px] font-black text-slate-900 dark:text-slate-500 uppercase tracking-[0.4em]">
                           Intelligence Source
                         </label>
                         <div className="flex items-center space-x-3 md:space-x-4">
@@ -639,7 +661,7 @@ const App: React.FC = () => {
 
                     <motion.div layout>
                       <div className="flex justify-between items-center mb-4 md:mb-6">
-                        <label htmlFor="jd-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
+                        <label htmlFor="jd-input" className="text-[9px] md:text-[10px] font-black text-slate-900 dark:text-slate-500 uppercase tracking-[0.4em]">
                           Target Benchmark
                         </label>
                         {state.jobDescription && (
