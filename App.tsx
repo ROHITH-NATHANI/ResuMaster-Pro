@@ -8,14 +8,14 @@ import * as mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
 
 // Configure PDF.js worker
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://esm.sh/pdfjs-dist@4.0.379/build/pdf.worker.min.mjs`;
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://esm.sh/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 const STEPS = [
-  { id: 'ingest', label: "Neural Ingestion", sub: "Acquiring Career Stream", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> },
-  { id: 'parse', label: "Structural Parsing", sub: "Decoding Semantic Nodes", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg> },
-  { id: 'align', label: "Semantic Logic", sub: "Mapping Latent Wisdom", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg> },
-  { id: 'benchmark', label: "Market Resonance", sub: "Calibrating Benchmark Fit", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg> },
-  { id: 'synthesize', label: "Intelligence Sync", sub: "Finalizing Insight Matrix", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"/></svg> }
+  { id: 'ingest', label: "Neural Ingestion", sub: "Acquiring Career Stream", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg> },
+  { id: 'parse', label: "Structural Parsing", sub: "Decoding Semantic Nodes", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg> },
+  { id: 'align', label: "Semantic Logic", sub: "Mapping Latent Wisdom", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg> },
+  { id: 'benchmark', label: "Market Resonance", sub: "Calibrating Benchmark Fit", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg> },
+  { id: 'synthesize', label: "Intelligence Sync", sub: "Finalizing Insight Matrix", icon: (props: any) => <svg {...props} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z" /></svg> }
 ];
 
 const EXTRACTION_STEPS = {
@@ -41,23 +41,23 @@ const ResuMasterLogo: React.FC<{ className?: string }> = ({ className = "w-10 h-
         <feComposite in="SourceGraphic" in2="blur" operator="over" />
       </filter>
     </defs>
-    <path 
-      d="M12 2L21 7.2V16.8L12 22L3 16.8V7.2L12 2Z" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinejoin="round" 
+    <path
+      d="M12 2L21 7.2V16.8L12 22L3 16.8V7.2L12 2Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinejoin="round"
     />
-    <path 
-      d="M12 6L15.5 10.5H12L15.5 15L12 18L8.5 15L12 10.5H8.5L12 6Z" 
-      fill="url(#logo-hex-grad-v2)" 
+    <path
+      d="M12 6L15.5 10.5H12L15.5 15L12 18L8.5 15L12 10.5H8.5L12 6Z"
+      fill="url(#logo-hex-grad-v2)"
       filter="url(#logo-glow-soft)"
     />
-    <motion.circle 
+    <motion.circle
       cx="12" cy="3.5" r="1.2" fill="#4f46e5"
       animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.3, 0.9] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
     />
-    <motion.circle 
+    <motion.circle
       cx="20.5" cy="17" r="1" fill="#9333ea"
       animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.3, 0.9] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -118,7 +118,7 @@ const App: React.FC = () => {
           if (prev < STEPS.length - 1) return prev + 1;
           return prev;
         });
-      }, 2500); 
+      }, 2500);
     }
     return () => clearInterval(interval);
   }, [state.isAnalyzing]);
@@ -269,10 +269,10 @@ const App: React.FC = () => {
       <nav className="sticky top-0 z-[60] glass border-b px-6 py-4 md:px-10 md:py-6 transition-all" aria-label="Main Navigation">
         <div className="max-w-[1400px] mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-12">
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.02, x: 5 }}
               whileTap={{ scale: 0.98 }}
-              className="flex items-center space-x-3 md:space-x-5 cursor-pointer" 
+              className="flex items-center space-x-3 md:space-x-5 cursor-pointer"
               onClick={resetAnalysis}
               role="button"
               tabIndex={0}
@@ -297,20 +297,20 @@ const App: React.FC = () => {
               <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Operational</span>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-4 md:space-x-8">
             {/* Usage Counter */}
             <div className="hidden sm:flex flex-col items-end mr-2">
               <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Neural Credits</span>
               <div className="flex items-center space-x-1">
-                {[1,2,3,4,5].map(i => (
+                {[1, 2, 3, 4, 5].map(i => (
                   <div key={i} className={`h-1.5 w-4 rounded-full ${i <= 3 ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-800'}`} />
                 ))}
                 <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 ml-2">42 / 100</span>
               </div>
             </div>
 
-            <motion.button 
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setDarkMode(!darkMode)}
@@ -362,7 +362,7 @@ const App: React.FC = () => {
       <main className="flex-grow max-w-[1400px] mx-auto w-full p-6 md:p-20 relative">
         <AnimatePresence mode="wait">
           {!state.result ? (
-            <motion.div 
+            <motion.div
               key="input"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -372,7 +372,7 @@ const App: React.FC = () => {
             >
               <div className="space-y-8 md:space-y-12 lg:sticky lg:top-40">
                 <div>
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 }}
@@ -392,15 +392,14 @@ const App: React.FC = () => {
                   </p>
                 </div>
 
-                <motion.div 
+                <motion.div
                   whileHover={{ scale: 1.01, y: -4 }}
                   whileTap={{ scale: 0.99 }}
                   onClick={() => !isExtracting && fileInputRef.current?.click()}
-                  className={`group relative overflow-hidden p-8 md:p-14 border-2 border-dashed rounded-[32px] md:rounded-[50px] transition-all flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 ${
-                    isExtracting ? 'border-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/10 cursor-wait' :
-                    uploadedFileName ? 'border-indigo-500/50 bg-indigo-50/20 dark:bg-indigo-900/10 cursor-pointer shadow-2xl' : 
-                    'border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900/40 cursor-pointer'
-                  }`}
+                  className={`group relative overflow-hidden p-8 md:p-14 border-2 border-dashed rounded-[32px] md:rounded-[50px] transition-all flex flex-col items-center justify-center text-center space-y-6 md:space-y-8 ${isExtracting ? 'border-indigo-400 bg-indigo-50/50 dark:bg-indigo-900/10 cursor-wait' :
+                      uploadedFileName ? 'border-indigo-500/50 bg-indigo-50/20 dark:bg-indigo-900/10 cursor-pointer shadow-2xl' :
+                        'border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-slate-50 dark:hover:bg-slate-900/40 cursor-pointer'
+                    }`}
                 >
                   <input type="file" ref={fileInputRef} className="hidden" accept=".pdf,.docx,.txt" onChange={handleFileSelect} />
                   {isExtracting ? (
@@ -436,30 +435,30 @@ const App: React.FC = () => {
               <div className="glass-card p-8 md:p-14 rounded-[40px] md:rounded-[64px] relative min-h-[600px] md:min-h-[700px] flex flex-col justify-between shadow-2xl transition-colors duration-500 overflow-hidden card-3d">
                 <AnimatePresence>
                   {state.isAnalyzing && (
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
                       animate={{ opacity: 1, backdropFilter: 'blur(40px)' }}
                       exit={{ opacity: 0 }}
                       className="absolute inset-0 z-50 bg-white/70 dark:bg-slate-950/90 rounded-[40px] md:rounded-[64px] flex flex-col items-center justify-center p-8 md:p-12 text-center"
                       style={{ perspective: '1200px' }}
                     >
-                      <motion.div 
+                      <motion.div
                         animate={{ rotateY: 360, rotateX: [0, 10, 0] }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                         className="absolute w-[500px] h-[500px] border border-indigo-500/10 rounded-full flex items-center justify-center"
                         style={{ transformStyle: 'preserve-3d', opacity: 0.3 }}
                       >
-                         <div className="absolute w-full h-full border border-indigo-500/5 rounded-full rotate-45" />
-                         <div className="absolute w-full h-full border border-indigo-500/5 rounded-full -rotate-45" />
-                         <motion.div 
-                           animate={{ scale: [1, 1.2, 1] }}
-                           transition={{ duration: 4, repeat: Infinity }}
-                           className="w-32 h-32 bg-indigo-500/10 blur-[60px] rounded-full" 
-                         />
+                        <div className="absolute w-full h-full border border-indigo-500/5 rounded-full rotate-45" />
+                        <div className="absolute w-full h-full border border-indigo-500/5 rounded-full -rotate-45" />
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 4, repeat: Infinity }}
+                          className="w-32 h-32 bg-indigo-500/10 blur-[60px] rounded-full"
+                        />
                       </motion.div>
 
                       <div className="w-full h-full flex flex-col items-center justify-center relative z-10" style={{ transformStyle: 'preserve-3d' }}>
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0, scale: 0.8, translateZ: -100 }}
                           animate={{ opacity: 1, scale: 1, translateZ: 0 }}
                           className="mb-16"
@@ -477,29 +476,28 @@ const App: React.FC = () => {
                               const isActive = idx === activeStepIndex;
                               const isCompleted = idx < activeStepIndex;
                               return (
-                                <motion.div 
-                                  key={step.id} 
+                                <motion.div
+                                  key={step.id}
                                   className="flex flex-col items-center"
                                   initial={{ translateZ: 0 }}
-                                  animate={{ 
+                                  animate={{
                                     translateZ: isActive ? 60 : 0,
                                     scale: isActive ? 1.15 : 1
                                   }}
                                   transition={{ type: 'spring', damping: 15 }}
                                 >
-                                  <motion.div 
-                                    animate={{ 
+                                  <motion.div
+                                    animate={{
                                       backgroundColor: isActive || isCompleted ? '#6366f1' : 'transparent',
                                       borderColor: isActive || isCompleted ? '#6366f1' : (darkMode ? '#1e293b' : '#e2e8f0'),
                                       boxShadow: isActive ? '0 20px 50px rgba(99, 102, 241, 0.4)' : 'none'
                                     }}
-                                    className={`w-16 h-16 md:w-20 md:h-20 rounded-[28px] md:rounded-[32px] flex items-center justify-center text-white transition-all border-2 relative ${
-                                      isActive ? 'z-20' : 'z-10'
-                                    } bg-slate-50 dark:bg-slate-900`}
+                                    className={`w-16 h-16 md:w-20 md:h-20 rounded-[28px] md:rounded-[32px] flex items-center justify-center text-white transition-all border-2 relative ${isActive ? 'z-20' : 'z-10'
+                                      } bg-slate-50 dark:bg-slate-900`}
                                   >
                                     <step.icon className={`w-8 h-8 md:w-10 md:h-10 ${isActive || isCompleted ? 'text-white' : 'text-slate-400'}`} />
                                     {isActive && (
-                                      <motion.div 
+                                      <motion.div
                                         layoutId="step-ring-3d"
                                         className="absolute inset-0 border-[3px] border-indigo-400/30 rounded-[28px] md:rounded-[32px]"
                                         animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
@@ -509,7 +507,7 @@ const App: React.FC = () => {
                                   </motion.div>
                                   <AnimatePresence mode="wait">
                                     {isActive && (
-                                      <motion.div 
+                                      <motion.div
                                         initial={{ opacity: 0, y: 20, rotateX: -45 }}
                                         animate={{ opacity: 1, y: 0, rotateX: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
@@ -526,10 +524,10 @@ const App: React.FC = () => {
                           </div>
 
                           {activeStepIndex < STEPS.length - 1 && (
-                            <motion.div 
+                            <motion.div
                               className="absolute top-1/2 h-1.5 bg-indigo-600 rounded-full z-[5] blur-[1px]"
                               initial={{ width: 0, left: `${(activeStepIndex / (STEPS.length - 1)) * 100}%` }}
-                              animate={{ 
+                              animate={{
                                 width: '25%',
                                 opacity: [0, 0.8, 0],
                                 left: [`${(activeStepIndex / (STEPS.length - 1)) * 100}%`, `${((activeStepIndex + 1) / (STEPS.length - 1)) * 100}%`]
@@ -538,11 +536,11 @@ const App: React.FC = () => {
                             />
                           )}
                         </div>
-                        
+
                         <div className="mt-64 flex flex-col items-center space-y-4">
                           <div className="flex space-x-2">
                             {[0, 1, 2].map(i => (
-                              <motion.div 
+                              <motion.div
                                 key={i}
                                 animate={{ y: [0, -10, 0], opacity: [0.3, 1, 0.3] }}
                                 transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }}
@@ -558,128 +556,128 @@ const App: React.FC = () => {
                     </motion.div>
                   )}
                 </AnimatePresence>
-                
+
                 <LayoutGroup>
-                <div className="space-y-8 md:space-y-12">
-                  <motion.div layout className="relative">
-                    <div className="flex justify-between items-center mb-4 md:mb-6">
-                      <label htmlFor="resume-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
-                        Intelligence Source
-                      </label>
-                      <div className="flex items-center space-x-3 md:space-x-4">
-                        {state.rawResumeText && (
-                          <button 
-                            onClick={() => setShowRawPreview(true)}
-                            className="text-slate-500 dark:text-slate-400 text-[9px] md:text-[10px] bg-slate-100 dark:bg-slate-800/60 px-3 py-1.5 md:px-4 md:py-2 rounded-full font-black hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all border border-transparent uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                  <div className="space-y-8 md:space-y-12">
+                    <motion.div layout className="relative">
+                      <div className="flex justify-between items-center mb-4 md:mb-6">
+                        <label htmlFor="resume-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
+                          Intelligence Source
+                        </label>
+                        <div className="flex items-center space-x-3 md:space-x-4">
+                          {state.rawResumeText && (
+                            <button
+                              onClick={() => setShowRawPreview(true)}
+                              className="text-slate-500 dark:text-slate-400 text-[9px] md:text-[10px] bg-slate-100 dark:bg-slate-800/60 px-3 py-1.5 md:px-4 md:py-2 rounded-full font-black hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 transition-all border border-transparent uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                            >
+                              Source
+                            </button>
+                          )}
+                          {state.resumeText && (
+                            <button
+                              onClick={() => setShowRefineTools(!showRefineTools)}
+                              className="text-indigo-600 dark:text-indigo-400 text-[9px] md:text-[10px] bg-indigo-50/50 dark:bg-indigo-900/40 px-3 py-1.5 md:px-4 md:py-2 rounded-full font-black hover:bg-indigo-600 hover:text-white transition-all border border-indigo-100/50 dark:border-indigo-800/30 uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                            >
+                              {showRefineTools ? 'Finalize' : 'Filter'}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <AnimatePresence>
+                        {showRefineTools && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0, scale: 0.95 }}
+                            animate={{ height: 'auto', opacity: 1, scale: 1 }}
+                            exit={{ height: 0, opacity: 0, scale: 0.95 }}
+                            className="overflow-hidden mb-6 md:mb-8"
                           >
-                            Source
-                          </button>
+                            <div className="p-6 md:p-8 bg-slate-50/80 dark:bg-slate-900/40 rounded-[24px] md:rounded-[32px] border border-slate-200 dark:border-slate-800 space-y-5 md:space-y-6 shadow-inner">
+                              <h4 className="text-[9px] md:text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.3em]">NLP Sanitization Pipeline</h4>
+                              <div className="space-y-4 md:space-y-5">
+                                {[
+                                  { key: 'normalizeSpacing', label: 'Semantic Flattening', desc: 'Eliminate structural noise & orphans' },
+                                  { key: 'removeSpecialChars', label: 'Byte-Level Stripping', desc: 'Remove non-standard Unicode artifacts' },
+                                  { key: 'stripUnwantedFormatting', label: 'Logic Reconstruction', desc: 'Convert visual markers to logical hierarchy' }
+                                ].map((opt) => (
+                                  <label key={opt.key} className="flex items-start space-x-4 md:space-x-5 cursor-pointer group">
+                                    <div className="mt-1">
+                                      <input
+                                        type="checkbox"
+                                        checked={(refineOptions as any)[opt.key]}
+                                        onChange={() => setRefineOptions(prev => ({ ...prev, [opt.key]: !(prev as any)[opt.key] }))}
+                                        className="w-5 h-5 md:w-6 md:h-6 rounded-lg md:rounded-xl text-indigo-600 dark:text-indigo-400 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-indigo-500 focus:ring-offset-0"
+                                      />
+                                    </div>
+                                    <div>
+                                      <p className="text-sm md:text-base font-black text-slate-800 dark:text-white group-hover:text-indigo-600 transition-colors tracking-tight">{opt.label}</p>
+                                      <p className="text-[10px] md:text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mt-0.5">{opt.desc}</p>
+                                    </div>
+                                  </label>
+                                ))}
+                              </div>
+                              <button
+                                onClick={applyRefinement}
+                                className="w-full py-3.5 md:py-4 bg-indigo-600 text-white text-[10px] md:text-xs font-black rounded-xl md:rounded-2xl hover:bg-indigo-700 shadow-2xl glow-indigo transition-all tracking-[0.2em] outline-none focus-visible:ring-2 focus-visible:ring-white"
+                              >
+                                EXECUTE TRANSFORMATION
+                              </button>
+                            </div>
+                          </motion.div>
                         )}
-                        {state.resumeText && (
-                          <button 
-                            onClick={() => setShowRefineTools(!showRefineTools)}
-                            className="text-indigo-600 dark:text-indigo-400 text-[9px] md:text-[10px] bg-indigo-50/50 dark:bg-indigo-900/40 px-3 py-1.5 md:px-4 md:py-2 rounded-full font-black hover:bg-indigo-600 hover:text-white transition-all border border-indigo-100/50 dark:border-indigo-800/30 uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-                          >
-                            {showRefineTools ? 'Finalize' : 'Filter'}
-                          </button>
+                      </AnimatePresence>
+
+                      <textarea
+                        id="resume-input"
+                        placeholder="Input resume content..."
+                        className="w-full h-48 md:h-64 p-6 md:p-8 rounded-[24px] md:rounded-[40px] bg-slate-50/30 dark:bg-slate-900/30 border-2 border-transparent focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 transition-all outline-none text-slate-700 dark:text-slate-300 text-sm md:text-base font-bold resize-none shadow-inner leading-relaxed"
+                        value={state.resumeText}
+                        onChange={(e) => setState(prev => ({ ...prev, resumeText: e.target.value }))}
+                        aria-label="Paste Resume Text Here"
+                      />
+                    </motion.div>
+
+                    <motion.div layout>
+                      <div className="flex justify-between items-center mb-4 md:mb-6">
+                        <label htmlFor="jd-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
+                          Target Benchmark
+                        </label>
+                        {state.jobDescription && (
+                          <span className="text-indigo-600 dark:text-indigo-400 text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1 rounded-full">
+                            LENS LOADED: {state.jobDescription.length.toLocaleString()} BYTES
+                          </span>
                         )}
                       </div>
-                    </div>
+                      <textarea
+                        id="jd-input"
+                        placeholder="Define the target role expectations..."
+                        className="w-full h-36 md:h-48 p-6 md:p-8 rounded-[24px] md:rounded-[40px] bg-slate-50/30 dark:bg-slate-900/30 border-2 border-transparent focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 transition-all outline-none text-slate-700 dark:text-slate-300 text-sm md:text-base font-bold resize-none shadow-inner leading-relaxed"
+                        value={state.jobDescription}
+                        onChange={(e) => setState(prev => ({ ...prev, jobDescription: e.target.value }))}
+                        aria-label="Paste Job Description Here"
+                      />
+                    </motion.div>
 
                     <AnimatePresence>
-                      {showRefineTools && (
-                        <motion.div 
-                          initial={{ height: 0, opacity: 0, scale: 0.95 }}
-                          animate={{ height: 'auto', opacity: 1, scale: 1 }}
-                          exit={{ height: 0, opacity: 0, scale: 0.95 }}
-                          className="overflow-hidden mb-6 md:mb-8"
+                      {state.error && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          className="p-6 md:p-8 bg-rose-50/80 dark:bg-rose-900/10 border border-rose-200/50 dark:border-rose-900/30 rounded-[32px] md:rounded-[40px] flex items-start space-x-5 md:space-x-6 shadow-lg"
+                          role="alert"
                         >
-                          <div className="p-6 md:p-8 bg-slate-50/80 dark:bg-slate-900/40 rounded-[24px] md:rounded-[32px] border border-slate-200 dark:border-slate-800 space-y-5 md:space-y-6 shadow-inner">
-                            <h4 className="text-[9px] md:text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.3em]">NLP Sanitization Pipeline</h4>
-                            <div className="space-y-4 md:space-y-5">
-                              {[
-                                { key: 'normalizeSpacing', label: 'Semantic Flattening', desc: 'Eliminate structural noise & orphans' },
-                                { key: 'removeSpecialChars', label: 'Byte-Level Stripping', desc: 'Remove non-standard Unicode artifacts' },
-                                { key: 'stripUnwantedFormatting', label: 'Logic Reconstruction', desc: 'Convert visual markers to logical hierarchy' }
-                              ].map((opt) => (
-                                <label key={opt.key} className="flex items-start space-x-4 md:space-x-5 cursor-pointer group">
-                                  <div className="mt-1">
-                                    <input 
-                                      type="checkbox" 
-                                      checked={(refineOptions as any)[opt.key]}
-                                      onChange={() => setRefineOptions(prev => ({ ...prev, [opt.key]: !(prev as any)[opt.key] }))}
-                                      className="w-5 h-5 md:w-6 md:h-6 rounded-lg md:rounded-xl text-indigo-600 dark:text-indigo-400 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-indigo-500 focus:ring-offset-0"
-                                    />
-                                  </div>
-                                  <div>
-                                    <p className="text-sm md:text-base font-black text-slate-800 dark:text-white group-hover:text-indigo-600 transition-colors tracking-tight">{opt.label}</p>
-                                    <p className="text-[10px] md:text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest mt-0.5">{opt.desc}</p>
-                                  </div>
-                                </label>
-                              ))}
-                            </div>
-                            <button 
-                              onClick={applyRefinement}
-                              className="w-full py-3.5 md:py-4 bg-indigo-600 text-white text-[10px] md:text-xs font-black rounded-xl md:rounded-2xl hover:bg-indigo-700 shadow-2xl glow-indigo transition-all tracking-[0.2em] outline-none focus-visible:ring-2 focus-visible:ring-white"
-                            >
-                              EXECUTE TRANSFORMATION
-                            </button>
+                          <div className="w-10 h-10 md:w-14 md:h-14 rounded-[16px] md:rounded-[20px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+                          </div>
+                          <div className="pt-1 md:pt-2">
+                            <h5 className="text-rose-900 dark:text-rose-400 font-black text-[10px] md:text-[11px] uppercase tracking-[0.3em] mb-1 md:mb-2">{getErrorTitle()}</h5>
+                            <p className="text-rose-700 dark:text-rose-300 text-sm md:text-base font-bold leading-snug">{state.error}</p>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-
-                    <textarea
-                      id="resume-input"
-                      placeholder="Input resume content..."
-                      className="w-full h-48 md:h-64 p-6 md:p-8 rounded-[24px] md:rounded-[40px] bg-slate-50/30 dark:bg-slate-900/30 border-2 border-transparent focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 transition-all outline-none text-slate-700 dark:text-slate-300 text-sm md:text-base font-bold resize-none shadow-inner leading-relaxed"
-                      value={state.resumeText}
-                      onChange={(e) => setState(prev => ({ ...prev, resumeText: e.target.value }))}
-                      aria-label="Paste Resume Text Here"
-                    />
-                  </motion.div>
-
-                  <motion.div layout>
-                    <div className="flex justify-between items-center mb-4 md:mb-6">
-                      <label htmlFor="jd-input" className="text-[9px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">
-                        Target Benchmark
-                      </label>
-                      {state.jobDescription && (
-                        <span className="text-indigo-600 dark:text-indigo-400 text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] bg-indigo-50 dark:bg-indigo-900/40 px-3 py-1 rounded-full">
-                          LENS LOADED: {state.jobDescription.length.toLocaleString()} BYTES
-                        </span>
-                      )}
-                    </div>
-                    <textarea
-                      id="jd-input"
-                      placeholder="Define the target role expectations..."
-                      className="w-full h-36 md:h-48 p-6 md:p-8 rounded-[24px] md:rounded-[40px] bg-slate-50/30 dark:bg-slate-900/30 border-2 border-transparent focus:border-indigo-500/30 focus:bg-white dark:focus:bg-slate-900 transition-all outline-none text-slate-700 dark:text-slate-300 text-sm md:text-base font-bold resize-none shadow-inner leading-relaxed"
-                      value={state.jobDescription}
-                      onChange={(e) => setState(prev => ({ ...prev, jobDescription: e.target.value }))}
-                      aria-label="Paste Job Description Here"
-                    />
-                  </motion.div>
-
-                  <AnimatePresence>
-                  {state.error && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 15, scale: 0.95 }} 
-                      animate={{ opacity: 1, y: 0, scale: 1 }} 
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className="p-6 md:p-8 bg-rose-50/80 dark:bg-rose-900/10 border border-rose-200/50 dark:border-rose-900/30 rounded-[32px] md:rounded-[40px] flex items-start space-x-5 md:space-x-6 shadow-lg"
-                      role="alert"
-                    >
-                      <div className="w-10 h-10 md:w-14 md:h-14 rounded-[16px] md:rounded-[20px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
-                      </div>
-                      <div className="pt-1 md:pt-2">
-                        <h5 className="text-rose-900 dark:text-rose-400 font-black text-[10px] md:text-[11px] uppercase tracking-[0.3em] mb-1 md:mb-2">{getErrorTitle()}</h5>
-                        <p className="text-rose-700 dark:text-rose-300 text-sm md:text-base font-bold leading-snug">{state.error}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                  </AnimatePresence>
-                </div>
+                  </div>
                 </LayoutGroup>
 
                 <motion.button
@@ -695,10 +693,10 @@ const App: React.FC = () => {
               </div>
             </motion.div>
           ) : (
-            <motion.div 
-              key="results" 
-              initial={{ opacity: 0, y: 40, scale: 0.98 }} 
-              animate={{ opacity: 1, y: 0, scale: 1 }} 
+            <motion.div
+              key="results"
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <Dashboard result={state.result} onReset={resetAnalysis} isDarkMode={darkMode} />
@@ -710,14 +708,14 @@ const App: React.FC = () => {
       <AnimatePresence>
         {showRawPreview && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-20 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowRawPreview(false)}
               className="absolute inset-0 bg-slate-950/95 backdrop-blur-3xl"
             />
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8, opacity: 0, y: 60 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 60 }}
@@ -729,7 +727,7 @@ const App: React.FC = () => {
                   <h3 id="modal-title" className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter">Bit-Level Extraction</h3>
                   <p className="text-slate-500 dark:text-slate-400 text-[9px] md:text-[10px] font-black uppercase tracking-[0.5em] mt-2 md:mt-3">Raw Parser Stream • Non-Processed Data</p>
                 </div>
-                <button 
+                <button
                   onClick={() => setShowRawPreview(false)}
                   className="p-3.5 md:p-5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl md:rounded-3xl hover:bg-rose-600 hover:text-white transition-all shadow-xl border border-slate-100 dark:border-slate-700 outline-none focus-visible:ring-2 focus-visible:ring-rose-500"
                 >
@@ -744,7 +742,7 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="p-8 md:p-12 bg-slate-50/50 dark:bg-slate-950/20 border-t border-slate-100 dark:border-slate-800 text-right">
-                <button 
+                <button
                   onClick={() => setShowRawPreview(false)}
                   className="px-10 md:px-16 py-3.5 md:py-5 bg-indigo-600 text-white rounded-xl md:rounded-3xl font-black transition-all hover:bg-indigo-700 shadow-2xl glow-indigo uppercase tracking-[0.3em] text-[10px] md:text-xs outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
                 >
@@ -758,11 +756,11 @@ const App: React.FC = () => {
 
       <footer className="py-12 md:py-20 px-10 border-t border-slate-100/30 dark:border-slate-900/30 text-center">
         <div className="flex flex-col items-center justify-center space-y-6 md:space-y-8">
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.1, rotate: 5 }}
             className="text-slate-400 dark:text-slate-600 shadow-inner flex items-center justify-center"
           >
-             <ResuMasterLogo className="w-12 h-12 md:w-14 md:h-14 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />
+            <ResuMasterLogo className="w-12 h-12 md:w-14 md:h-14 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />
           </motion.div>
           <div className="space-y-2">
             <p className="text-slate-500 dark:text-slate-400 text-[10px] md:text-[11px] font-black uppercase tracking-[0.8em]">ResuMaster Intelligence • Flash Cluster v3.1</p>
