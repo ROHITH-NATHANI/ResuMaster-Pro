@@ -231,9 +231,9 @@ const App: React.FC = () => {
     try {
       const result = await analyzeResume(state.resumeText, state.jobDescription);
       setTimeout(() => { setState(prev => ({ ...prev, result, isAnalyzing: false })); }, 1000);
-    } catch (err: any) {
+    } catch (err) {
       setErrorCategory('analysis');
-      setState(prev => ({ ...prev, error: err.message || 'Compute Error: Intelligence engine failed to reach a conclusion.', isAnalyzing: false }));
+      setState(prev => ({ ...prev, error: (err as any).message || 'Compute Error: Intelligence engine failed to reach a conclusion.', isAnalyzing: false }));
     }
   };
 
@@ -268,26 +268,48 @@ const App: React.FC = () => {
     <div className="min-h-screen flex flex-col transition-all duration-700 font-sans selection:bg-indigo-500 selection:text-white">
       <nav className="sticky top-0 z-[60] glass border-b px-6 py-4 md:px-10 md:py-6 transition-all" aria-label="Main Navigation">
         <div className="max-w-[1400px] mx-auto flex justify-between items-center">
-          <motion.div 
-            whileHover={{ scale: 1.02, x: 5 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex items-center space-x-3 md:space-x-5 cursor-pointer" 
-            onClick={resetAnalysis}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && resetAnalysis()}
-            aria-label="ResuMaster Pro Home"
-          >
-            <div className="text-indigo-600 shadow-2xl glow-indigo transition-transform hover:rotate-2">
-              <ResuMasterLogo className="w-10 h-10 md:w-14 md:h-14" />
+          <div className="flex items-center space-x-12">
+            <motion.div 
+              whileHover={{ scale: 1.02, x: 5 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center space-x-3 md:space-x-5 cursor-pointer" 
+              onClick={resetAnalysis}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && resetAnalysis()}
+              aria-label="ResuMaster Pro Home"
+            >
+              <div className="text-indigo-600 shadow-2xl glow-indigo transition-transform hover:rotate-2">
+                <ResuMasterLogo className="w-10 h-10 md:w-14 md:h-14" />
+              </div>
+              <div>
+                <span className="text-xl md:text-3xl font-black tracking-tighter text-slate-900 dark:text-white block leading-none">ResuMaster <span className="text-indigo-600">Pro</span></span>
+                <span className="text-[8px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">Flash Engine Cluster</span>
+              </div>
+            </motion.div>
+
+            {/* System Status Pill */}
+            <div className="hidden lg:flex items-center px-4 py-2 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-900/30 rounded-full">
+              <span className="relative flex h-2 w-2 mr-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">Operational</span>
             </div>
-            <div>
-              <span className="text-xl md:text-3xl font-black tracking-tighter text-slate-900 dark:text-white block leading-none">ResuMaster <span className="text-indigo-600">Pro</span></span>
-              <span className="text-[8px] md:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.4em]">Flash Engine Cluster</span>
-            </div>
-          </motion.div>
+          </div>
           
           <div className="flex items-center space-x-4 md:space-x-8">
+            {/* Usage Counter */}
+            <div className="hidden sm:flex flex-col items-end mr-2">
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Neural Credits</span>
+              <div className="flex items-center space-x-1">
+                {[1,2,3,4,5].map(i => (
+                  <div key={i} className={`h-1.5 w-4 rounded-full ${i <= 3 ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-800'}`} />
+                ))}
+                <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 ml-2">42 / 100</span>
+              </div>
+            </div>
+
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -332,13 +354,6 @@ const App: React.FC = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.button>
-            <motion.button 
-              whileHover={{ y: -3, scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden sm:block px-6 md:px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black text-xs md:text-sm shadow-2xl transition-all tracking-widest uppercase border border-white/10 dark:border-slate-900/10 focus-visible:ring-2 focus-visible:ring-indigo-500"
-            >
-              Enterprise
             </motion.button>
           </div>
         </div>
@@ -397,7 +412,7 @@ const App: React.FC = () => {
                   ) : uploadedFileName ? (
                     <>
                       <div className="w-16 h-16 md:w-24 md:h-24 bg-indigo-600 text-white rounded-[24px] md:rounded-[32px] flex items-center justify-center shadow-2xl glow-indigo transform transition-transform group-hover:rotate-12">
-                        <svg className="w-10 h-10 md:w-12 md:h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
+                        <svg className="w-10 h-10 md:w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
                       </div>
                       <div className="max-w-full px-4 md:px-6">
                         <p className="text-slate-900 dark:text-white font-black text-xl md:text-2xl truncate mb-1 md:mb-2">{uploadedFileName}</p>
@@ -655,7 +670,7 @@ const App: React.FC = () => {
                       role="alert"
                     >
                       <div className="w-10 h-10 md:w-14 md:h-14 rounded-[16px] md:rounded-[20px] bg-rose-100 dark:bg-rose-900/30 text-rose-600 flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+                        <svg className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
                       </div>
                       <div className="pt-1 md:pt-2">
                         <h5 className="text-rose-900 dark:text-rose-400 font-black text-[10px] md:text-[11px] uppercase tracking-[0.3em] mb-1 md:mb-2">{getErrorTitle()}</h5>
