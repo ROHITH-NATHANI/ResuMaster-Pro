@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import * as mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
 import Hero3D from './components/Hero3D';
+import ExtractionLoader from './components/ExtractionLoader';
 import 'animate.css';
 
 // Configure PDF.js worker
@@ -657,6 +658,9 @@ const App: React.FC = () => {
                         onChange={(e) => setState(prev => ({ ...prev, resumeText: e.target.value }))}
                         aria-label="Paste Resume Text Here"
                       />
+                      <AnimatePresence>
+                        {isExtracting && <ExtractionLoader step={extractionStep} />}
+                      </AnimatePresence>
                     </motion.div>
 
                     <motion.div layout>
