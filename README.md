@@ -96,5 +96,5 @@ The "Flash Engine Cluster" is open for high-impact contributions.
 ---
 
 <div align="center">
-  <p>© 2026 ResuMaster Intelligence. All systems nominal.</p>
+  <p>© 2025 ResuMaster Intelligence. All systems nominal.</p>
 </div>
